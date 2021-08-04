@@ -1,2 +1,2 @@
 # talkbox
-simple chat-based application. voice to text
+Simple chat-based application. Voice to text
