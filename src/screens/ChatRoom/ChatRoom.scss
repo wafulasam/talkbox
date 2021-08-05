@@ -1,0 +1,9 @@
+
+.chat-room {
+    background-image: url('../../assets/images/chat-background.png');
+    min-height: 90vh;
+
+    @media(max-width:1000px) {
+        min-height: 100vh;
+    }
+}
