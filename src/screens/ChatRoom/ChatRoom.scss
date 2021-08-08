@@ -6,4 +6,9 @@
     @media(max-width:1000px) {
         min-height: 100vh;
     }
+
+    // hide the default new message input
+    .new-message {
+        display: none;
+    }
 }
