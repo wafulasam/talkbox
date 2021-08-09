@@ -1,14 +1,16 @@
+@import '../../globals.scss';
 
 .main-layout {
+    padding:0;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
 
-    background:#eee;
-    min-width: 400px;
-    min-height: 90vh;
+    background:$color-light-gray;
+    min-width: 375px;
+    min-height: 96vh;
 
     @media(max-width:1000px) {
         min-height: 100vh;

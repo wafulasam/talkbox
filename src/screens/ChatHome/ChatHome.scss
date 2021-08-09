@@ -1,0 +1,47 @@
+@import '../../globals.scss';
+
+// chat home
+.chat-home {
+    .title {
+        font-size: 2rem;
+        color: $color-primary;
+        text-transform: uppercase;
+    }
+
+    .logo {
+        float: left
+    }
+
+    .avatar {
+        border-radius: 50%;
+        float: right;
+    }
+}
+
+// chat box
+.chat-box {
+    text-align: left;
+    margin: 1rem;
+    padding: 1rem;
+    background: #fff;
+
+    .image-holder {
+        display:inline-block;
+        width: 20%;
+
+        img {
+            border-radius: 50%;
+            margin-top: -2rem;
+        }
+    }
+    .content {
+        display:inline-block;
+        width: 80%;
+
+        span {
+            float: right;
+            color: $color-primary;
+            font-size: 1rem;
+        }
+    }
+}

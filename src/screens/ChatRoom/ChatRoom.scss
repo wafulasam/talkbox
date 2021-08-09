@@ -1,3 +1,4 @@
+@import '../../globals.scss';
 
 .chat-room {
     background-image: url('../../assets/images/chat-background.png');
@@ -7,8 +8,32 @@
         min-height: 100vh;
     }
 
+
+    .top {
+        .back-button {
+            float: left;
+            height: 3rem;
+            width: 3rem;
+            fill: $color-primary;
+        }
+
+        .title {
+            font-size: 2rem;
+            color: $color-primary;
+            text-transform: uppercase;
+        }
+        .avatar {
+            border-radius: 50%;
+            float: right;
+        }
+    }
+
     // hide the default new message input
     .new-message {
         display: none;
+    }
+
+    .bubble-container {
+        font-family: $font-primary;
     }
 }

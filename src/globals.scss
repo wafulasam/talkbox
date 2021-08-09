@@ -1,0 +1,26 @@
+// This is a global styling file
+
+@import "./styles/mixins.scss";
+@import "./styles/variables.scss";
+
+html {
+
+    body {
+        background: $color-black;
+        overflow-x: hidden !important ; /*preventing overflow*/
+        margin: 0;
+        padding: 0;
+        color: $color-text;
+        font-size: 14px;
+        font-family: $font-primary;
+        line-height: 1.5;
+        -webkit-text-size-adjust: 100%;
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+
+        .link {
+            text-decoration: none;
+            color: inherit;
+        }
+    }
+
+}

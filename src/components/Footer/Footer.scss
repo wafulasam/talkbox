@@ -1,0 +1,40 @@
+@import '../../globals.scss';
+
+.footer {
+    padding: 1rem 2rem;
+    background: $color-white;
+    color: inherit;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin-top: 2rem;
+
+    .phone {
+       float: left;
+       height: 2rem;
+       width: 2rem;
+       fill: $color-text;
+    }
+
+
+    .home {
+       fill: $color-primary;
+       height: 3rem;
+       width: 3rem;
+     }
+
+    .bell {
+        float: right;
+        height: 2rem;
+        width: 2rem;
+        fill: $color-text;
+    }
+
+    .microphone {
+        padding: .5rem;
+        height: 4rem;
+        width: 4rem;
+        fill: $color-white;
+        border-radius: 50%;
+    }
+}
