@@ -36,4 +36,12 @@
     .bubble-container {
         font-family: $font-primary;
     }
+
+    .voice-input {
+        width: 100%;
+        margin-bottom: 2rem;
+        padding-bottom: 3rem;
+        border: none;
+        display: none;
+    }
 }

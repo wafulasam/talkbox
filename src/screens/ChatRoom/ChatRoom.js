@@ -13,7 +13,7 @@ export default function ChatRoom () {
     const [ listening, setListening ] = useState(false);
 
     const createNewMessage = () => {
-        setListening(true)
+        setListening(!listening)
     }
     const createMessage = () => null; // avoiding default props error
     return (
@@ -27,6 +27,12 @@ export default function ChatRoom () {
             </Header>
             <ChatBubble messages={chats} onNewMessage={createMessage}/>
             <Footer>
+                <input
+                    type="text"
+                    placeholder="Speak your message, listening..."
+                    className="voice-input"
+                    style={listening ? {display:'block'} : {display:'none'}}
+                />
                 <Microphone 
                     className="microphone"
                     style={listening ? { background: 'red' } : { background: '#0e7fff' }}
