@@ -7,18 +7,23 @@ import ChatBubble from 'react-chat-bubble';
 import { chats } from '../../messages';
 import { ReactComponent as BackButton } from '../../assets/icons/back-button.svg';
 import { ReactComponent as Microphone } from '../../assets/icons/microphone.svg';
+import { useRecorder } from '../../custom-hooks/useRecorder';
 
 export default function ChatRoom () {
     const [ messages, setMessages ] = useState(chats);
     const [ listening, setListening ] = useState(false);
     const [ activeMessage, setActiveMessage ] = useState([]);
+    let [audioURL, isRecording, startRecording, stopRecording] = useRecorder();
 
     const startListening = () => {
         setListening(true)
+        startRecording() // start recording audio
     }
 
     const stopListening = () => {
         setListening(false)
+        stopRecording() // stop recording audio
+        console.log(audioURL) // log the audio blob url
 
         const payload = {
             type: 0,
@@ -48,7 +53,7 @@ export default function ChatRoom () {
             <Footer>
                 <input
                     type="text"
-                    placeholder="Speak your message, listening..."
+                    placeholder={isRecording ? "Speak your message, listening..." : ""}
                     className="voice-input"
                     style={listening ? {display:'block'} : {display:'none'}}
                     onChange={(e)=> setActiveMessage(e.target.value)}
