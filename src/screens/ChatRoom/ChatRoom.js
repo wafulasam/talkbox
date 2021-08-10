@@ -9,12 +9,31 @@ import { ReactComponent as BackButton } from '../../assets/icons/back-button.svg
 import { ReactComponent as Microphone } from '../../assets/icons/microphone.svg';
 
 export default function ChatRoom () {
-    // const [ messages, setMessage ] = useState(chats);
+    const [ messages, setMessages ] = useState(chats);
     const [ listening, setListening ] = useState(false);
+    const [ activeMessage, setActiveMessage ] = useState([]);
 
-    const createNewMessage = () => {
-        setListening(!listening)
+    const startListening = () => {
+        setListening(true)
     }
+
+    const stopListening = () => {
+        setListening(false)
+
+        const payload = {
+            type: 0,
+            image: "https://avatars.githubusercontent.com/u/20152051?v=4",
+            text: activeMessage
+        }
+
+        // if the message input is empty append null to the bubble
+        if(activeMessage<1){
+            return null
+        } else {
+            setMessages([...messages, payload])
+        }
+    }
+
     const createMessage = () => null; // avoiding default props error
     return (
         <div className="chat-room">
@@ -25,19 +44,27 @@ export default function ChatRoom () {
                     <img src="https://www.stylevore.com/wp-content/uploads/2019/04/avatar-155445160702l46-150x150.jpg" alt="" height="40" className="avatar"/>
                 </div>
             </Header>
-            <ChatBubble messages={chats} onNewMessage={createMessage}/>
+            <ChatBubble messages={messages} onNewMessage={createMessage}/>
             <Footer>
                 <input
                     type="text"
                     placeholder="Speak your message, listening..."
                     className="voice-input"
                     style={listening ? {display:'block'} : {display:'none'}}
+                    onChange={(e)=> setActiveMessage(e.target.value)}
                 />
-                <Microphone 
-                    className="microphone"
-                    style={listening ? { background: 'red' } : { background: '#0e7fff' }}
-                    onClick={createNewMessage}
-                />
+                {listening ? 
+                    <Microphone 
+                        className="microphone"
+                        style={{ background: 'red' }}
+                        onClick={stopListening}
+                    /> :
+                    <Microphone 
+                        className="microphone"
+                        style={{ background: '#0e7fff' }}
+                        onClick={startListening}
+                    />
+                }
             </Footer>
         </div>
     )
