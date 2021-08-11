@@ -49,7 +49,7 @@ export default function ChatRoom () {
             if (result.reason === ResultReason.RecognizedSpeech) {
                 displayText = `✅ ${result.text}`
             } else {
-                displayText = '🛑 Speech was cancelled or could not be recognized. Ensure your microphone is working properly.';
+                displayText = '🛑 Speech not recognized. Ensure your microphone is working properly.';
             }
 
             setDisplayText(displayText);
@@ -74,7 +74,7 @@ export default function ChatRoom () {
             if (result.reason === ResultReason.RecognizedSpeech) {
                 displayText = `RECOGNIZED: Text=${result.text}`
             } else {
-                displayText = 'ERROR: Speech was cancelled or could not be recognized. Ensure your microphone is working properly.';
+                displayText = 'ERROR: Speech not recognized. Ensure your microphone is working properly.';
             }
 
             setDisplayText(fileInfo + displayText)
@@ -98,14 +98,16 @@ export default function ChatRoom () {
         const payload = {
             type: 0,
             image: "https://avatars.githubusercontent.com/u/20152051?v=4",
-            text: uneditedText
+            text: uneditedText.substring(1) // .substring is used to remove the ✅ or 🛑 from the sent message, since they area just used as indictators
         }
 
         // if the message input is empty append null to the bubble
-        if(uneditedText<1){
-            return null
+        if(uneditedText<1 || uneditedText === "🛑 Speech not recognized. Ensure your microphone is working properly."){
+            setShowTextBox(false);
         } else {
             setMessages([...messages, payload])
+            setDisplayText('')
+            setShowTextBox(false)
         }
     }
 
@@ -126,8 +128,8 @@ export default function ChatRoom () {
                     type="text"
                     className="voice-input"
                     style={listening ||  showTextBox ? {display:'block'} : {display:'none'}}
-                    onChange={(e)=> setDisplayText(e.target.value)}
-                    value={uneditedText=== '' ? displayText : uneditedText}
+                    onChange={(e)=> {setDisplayText(e.target.value); setUneditedText(e.target.value)}} // we are updating both display text and unedited text
+                    value={displayText}
                 />
 
                 {listening || showTextBox ? 
