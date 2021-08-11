@@ -12,10 +12,10 @@ export async function getTokenOrRefresh() {
             const region = res.data.region;
             cookie.set('speech-token', region + ':' + token, {maxAge: 540, path: '/'});
 
-            console.log(token)
-            console.log(region)
+            // console.log(token)
+            // console.log(region)
+            // console.log('Token fetched from back-end: ' + token);
 
-            console.log('Token fetched from back-end: ' + token);
             return { authToken: token, region: region };
         } catch (err) {
             console.log(err.response.data);

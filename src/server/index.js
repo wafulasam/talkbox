@@ -19,6 +19,7 @@ app.get('/api/get-speech-token', async (req, res, next) => {
     // console.log(speechKey)
     // console.log(speechRegion)
 
+    // I decided to hard code the keys due to some .env bugs returning null
     const speechKey = '598bf377d02c48d5b49a0fc7f2a43661';
     const speechRegion = 'eastus';
 
