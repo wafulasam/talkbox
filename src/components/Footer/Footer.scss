@@ -37,4 +37,11 @@
         fill: $color-white;
         border-radius: 50%;
     }
+
+    .send {
+       float: right;
+        height: 3rem;
+        width: 3rem;
+        fill: $color-primary;
+    }
 }
