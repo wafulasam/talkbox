@@ -11,14 +11,16 @@ app.use(pino);
 
 app.get('/api/get-speech-token', async (req, res, next) => {
     res.setHeader('Content-Type', 'application/json');
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
     // const speechKey = process.env.SPEECH_KEY;
     // const speechRegion = process.env.SPEECH_REGION;
 
+    // console.log(speechKey)
+    // console.log(speechRegion)
+
     const speechKey = '598bf377d02c48d5b49a0fc7f2a43661';
     const speechRegion = 'eastus';
-
-    console.log(speechKey)
-    console.log(speechRegion)
 
     if (speechKey === 'paste-your-speech-key-here' || speechRegion === 'paste-your-speech-region-here') {
         res.status(400).send('You forgot to add your speech key or region to the .env file.');
