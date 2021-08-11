@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from 'react'
+import React, { useState , useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import './ChatRoom.scss'
 import Header from '../../components/Header/Header';
@@ -17,7 +17,8 @@ const speechsdk = require('microsoft-cognitiveservices-speech-sdk')
 export default function ChatRoom () {
     const [ messages, setMessages ] = useState(chats);
     const [ listening, setListening ] = useState(false);
-    const [ displayText, setDisplayText ] = useState('Speak your message, listening...');
+    const [ showTextBox, setShowTextBox ] = useState(false);
+    const [ displayText, setDisplayText ] = useState('');
     const [ uneditedText, setUneditedText ] = useState('');
 
     // =========== azure integration  logic ===============
@@ -41,14 +42,14 @@ export default function ChatRoom () {
         const audioConfig = speechsdk.AudioConfig.fromDefaultMicrophoneInput();
         const recognizer = new speechsdk.SpeechRecognizer(speechConfig, audioConfig);
 
-        setDisplayText('speak into your microphone...');
+        setDisplayText('Speak into your microphone...');
 
         recognizer.recognizeOnceAsync(result => {
             let displayText;
             if (result.reason === ResultReason.RecognizedSpeech) {
-                displayText = `RECOGNIZED: Text=${result.text}`
+                displayText = `✅ ${result.text}`
             } else {
-                displayText = 'ERROR: Speech was cancelled or could not be recognized. Ensure your microphone is working properly.';
+                displayText = '🛑 Speech was cancelled or could not be recognized. Ensure your microphone is working properly.';
             }
 
             setDisplayText(displayText);
@@ -59,10 +60,7 @@ export default function ChatRoom () {
         const audioFile = event.target.files[0];
         console.log(audioFile);
         const fileInfo = audioFile.name + ` size=${audioFile.size} bytes `;
-
-        this.setState({
-            displayText: fileInfo
-        });
+        setDisplayText(fileInfo)
 
         const tokenObj = await getTokenOrRefresh();
         const speechConfig = speechsdk.SpeechConfig.fromAuthorizationToken(tokenObj.authToken, tokenObj.region);
@@ -93,6 +91,7 @@ export default function ChatRoom () {
     const stopListening = () => {
         setListening(false)
         setUneditedText(displayText);
+        setShowTextBox(true)
     }
 
     const sendMessage = () => {
@@ -123,19 +122,19 @@ export default function ChatRoom () {
             </Header>
             <ChatBubble messages={messages} onNewMessage={createMessage}/>
             <Footer>
-                <input
+                <textarea
                     type="text"
-                    placeholder={displayText}
                     className="voice-input"
-                    style={listening ? {display:'block'} : {display:'none'}}
+                    style={listening ||  showTextBox ? {display:'block'} : {display:'none'}}
                     onChange={(e)=> setDisplayText(e.target.value)}
-                    value={uneditedText}
+                    value={uneditedText=== '' ? displayText : uneditedText}
                 />
 
-                {listening ? 
+                {listening || showTextBox ? 
                     <SendIcon 
                         className="send"
                         onClick={sendMessage}
+                        disabled
                     /> :
                     null
                 }
