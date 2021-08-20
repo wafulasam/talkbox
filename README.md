@@ -1,4 +1,4 @@
-# talkbox
+# talkbox 🎙️ 💬
 Simple chat-based application. Voice to text
 
 - User Interface - React
